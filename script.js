@@ -20,6 +20,7 @@ function closeModal(modalId) {
 
 // Kullanıcı modalın dışına (siyah alana) tıklarsa kapat
 window.onclick = function(event) {
+    // Tıklanan elementin "modal" class'ına sahip olup olmadığını kontrol et
     if (event.target.classList.contains('modal')) {
         event.target.style.display = "none";
         document.body.style.overflow = "auto";

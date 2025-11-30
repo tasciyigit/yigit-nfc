@@ -37,8 +37,8 @@
                 </div>
                 <div class="project-card" onclick="openModal('modal-5')">
     <div class="card-icon"><i class="fas fa-robot"></i></div>
-    <h3>Servo Motor Kontrolü (C++)</h3>
-    <p>Potansiyometre ile motorun açısını kontrol eden Arduino projesi.</p>
+    <h3>Şifreli bomba (C++)</h3>
+    <p>Girdiğin süre içerisinde şifreyi bilemesen patlayan Arduino projesi.</p>
     <button class="details-btn">Projeyi İncele <i class="fas fa-arrow-right"></i></button>
 </div>
 
@@ -128,18 +128,20 @@ if __name__ == "__main__":
     <div id="modal-5" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal-5')">&times;</span>
-            <h2>Potansiyometre ile Servo Kontrolü</h2>
+            <h2>Şifreli bomba </h2>
             
             <div class="project-detail-section">
                 <h3><i class="fas fa-bullseye"></i> Amaç</h3>
-                <p>Arduino'nun Analog Giriş (Analog Read) özelliğini kullanarak bir Potansiyometre'den gelen voltaj değerini okumak ve bu değeri Servo Motor'un hareket açısına (0-180 derece) dönüştürerek motoru hassasça kontrol etmektir. Bu, C++ (Arduino) ile donanım kontrolünün temelidir.</p>
+                <p>Bu proje, Keypad (Tuş Takımı), LCD Ekran ve Arduino Uno kullanılarak geliştirilmiş, **kompleks bir şifreli imha simülasyonudur** (Bomb Defusal Game). Projenin amacı, kullanıcının belirlediği süre ve şifre ile kurulan zamanlayıcıyı devreye sokmak ve geri sayım bitmeden doğru şifreyi girerek sistemi durdurmayı sağlamaktır.</p>
+<p>Proje, bir Arduino projesinde sıklıkla kullanılan birden fazla temel fonksiyonu bir araya getirir: **Gelişmiş Keypad okuma**, **LCD Ekran üzerinden kullanıcı etkileşimi (kurulum)**, **zamanlayıcı yönetimi (`millis()`)** ve **sesli/görsel geri bildirimler (LED/Buzzer)**.</p>
+<p>Yanlış şifre girildiğinde süre kısaltılır ve uyarılar verilirken, süre dolduğunda ise görsel ve sesli **'Patlama Efekti'** ile oyun sonlanır. Bu, gerçek dünya kilit sistemlerinin veya oyun tasarımlarının temel mantığını sergiler.</p>
             </div>
 
             <div class="project-detail-section">
                 <h3><i class="fas fa-video"></i> Video</h3>
                 <div class="video-container">
                     <video controls>
-                        <source src="videos/servo_motor_demom.mp4" type="video/mp4">
+                        <source src="Adsız tasarım-3.mp4" type="video/mp4">
                         Tarayıcınız video etiketini desteklemiyor.
                     </video>
                 </div>
@@ -156,28 +158,277 @@ if __name__ == "__main__":
             <div class="project-detail-section">
                 <h3><i class="fas fa-code"></i> Kaynak Kod (C++)</h3>
                 <pre><code class="language-cpp">
-// BURAYI DEĞİŞTİR: Arduino (C++) kodunu buraya yapıştır.
-#include <Servo.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+#include <Keypad.h>
 
-Servo myServo;  // Servo nesnesi oluşturuldu
-int potPin = A0;  // Potansiyometre analog giriş pini
-int val;      // Potansiyometre değeri için değişken
+// --- AYARLAR ---
+LiquidCrystal_I2C lcd(0x27, 16, 2); 
+const int BUZZER = 11; 
+const int KIRMIZI_LED = 12;
+const int YESIL_LED = 10;   
+
+// --- KEYPAD AYARLARI (Klavye Tersliği Düzeltilmiş) ---
+const byte SATIR = 4; 
+const byte SUTUN = 4; 
+byte satirPinleri[SATIR] = {2, 3, 4, 5}; 
+byte sutunPinleri[SUTUN] = {6, 7, 8, 9}; 
+char tuslar[SATIR][SUTUN] = {
+  {'1','2','3','A'},
+  {'4','5','6','B'},
+  {'7','8','9','C'},
+  {'*','0','#','D'}
+};
+Keypad keypad = Keypad( makeKeymap(tuslar), satirPinleri, sutunPinleri, SATIR, SUTUN );
+
+// --- DEĞİŞKENLER ---
+String kuruluSifre = "";
+String girilenSifre = "";
+long kalanSureSaniye = 0;
+unsigned long sonZaman = 0;
+bool oyunAktif = false;
+bool patladi = false;
+bool imhaOldu = false;
+
+
+// YENİ FONKSİYON: BAŞLANGIÇTA BEKLETME
+void ekranBeklet(String ust, String alt, char bekleTusu) {
+    lcd.clear();
+    lcd.print(ust);
+    lcd.setCursor(0, 1);
+    lcd.print(alt);
+    
+    // Belirtilen tuşa basana kadar bekle
+    while (keypad.getKey() != bekleTusu) {
+        delay(100); 
+    }
+    tone(BUZZER, 3500, 50); // Tuşa basıldığında bip sesi
+}
+
 
 void setup() {
-  myServo.attach(9); // Servo sinyal pini 9'a bağlandı
+  lcd.init();
+  lcd.backlight();
+  pinMode(BUZZER, OUTPUT);
+  pinMode(KIRMIZI_LED, OUTPUT); 
+  pinMode(YESIL_LED, OUTPUT);
+  
+  digitalWrite(KIRMIZI_LED, LOW);
+  digitalWrite(YESIL_LED, LOW);
+  
+  // 1. ADIM: BAŞLANGIÇ EKRANI VE BEKLEME
+  ekranBeklet("BOMBA SISTEMI ", "* TUSUNA BASIN", '*');
+  
+  // 2. ADIM: Şifre ve Süre Kurulumu
+  sifreBelirleEkrani();
+  sureBelirleEkrani();
+  
+  // 3. ADIM: Oyunu Başlat
+  oyunBaslat();
 }
 
 void loop() {
-  // 1. Potansiyometreden 0-1023 arası değer oku
-  val = analogRead(potPin); 
+  if (!oyunAktif) return; 
+
+  if (millis() - sonZaman >= 1000) {
+    sonZaman = millis();
+    if (kalanSureSaniye > 0) {
+      kalanSureSaniye--;
+      ekraniGuncelle();
+      tone(BUZZER, 2000, 50); 
+    } else {
+      patlamaEfekti();
+    }
+  }
+
+  char tus = keypad.getKey();
+  if (tus) {
+    tone(BUZZER, 3500, 50); 
+    
+    if (tus == '#') { 
+      if (girilenSifre == kuruluSifre) {
+        imhaEfekti();
+      } else {
+        hataliSifreEfekti();
+      }
+      girilenSifre = ""; 
+      ekraniGuncelle();
+    } 
+    else if (tus == '*') {
+      girilenSifre = "";
+      ekraniGuncelle();
+    }
+    else {
+      if(girilenSifre.length() < 8) {
+        girilenSifre += tus;
+        lcd.setCursor(0, 1);
+        lcd.print(girilenSifre);
+      }
+    }
+  }
+}
+
+// --- EK FONSİYONLAR ---
+
+// GÜNCELLENMİŞ EKRAN GÜNCELLEME FONKSİYONU (Hata Çözümü)
+void ekraniGuncelle() {
+  int dk = kalanSureSaniye / 60;
+  int sn = kalanSureSaniye % 60;
   
-  // 2. 0-1023 değerini Servo'nun 0-180 derecesine dönüştür
-  val = map(val, 0, 1023, 0, 180);
+  // Hata Çözümü: Önceki harfleri silmek için sonuna boşluk ekleniyor.
+  lcd.setCursor(0, 0);
+  lcd.print("SURE: ");
+  if (dk < 10) lcd.print("0");
+  lcd.print(dk);
+  lcd.print(":");
+  if (sn < 10) lcd.print("0");
+  lcd.print(sn);
+  lcd.print("   "); // <-- Bu boşluklar, 'e' harfini veya fazlalıkları temizler.
   
-  // 3. Servo'yu yeni açısına hareket ettir
-  myServo.write(val);
+  lcd.setCursor(0, 1);
+  if (girilenSifre == "") {
+    lcd.print("SIFRE GIRIN...  "); // Alt satırda da temizleme yapalım
+  } else {
+    lcd.print(girilenSifre);
+    lcd.print("                "); // Şifre kısa kalırsa diye temizleme
+  }
+}
+
+void hataliSifreEfekti() {
+  lcd.clear();
+  lcd.print("HATALI SIFRE!");
   
-  delay(15); 
+  for(int i = 0; i < 20; i++) {
+    digitalWrite(KIRMIZI_LED, HIGH);
+    digitalWrite(YESIL_LED, LOW);
+    tone(BUZZER, 500, 50); 
+    delay(50);
+    digitalWrite(KIRMIZI_LED, LOW);
+    digitalWrite(YESIL_LED, HIGH);
+    tone(BUZZER, 100, 50);
+    delay(50);
+  }
+  
+  digitalWrite(YESIL_LED, LOW);
+  digitalWrite(KIRMIZI_LED, HIGH);
+  
+  if (kalanSureSaniye > 10) kalanSureSaniye -= 10;
+  else kalanSureSaniye = 1; 
+}
+
+void oyunBaslat() {
+  lcd.clear();
+  lcd.print("BOMBA KURULDU!");
+  digitalWrite(KIRMIZI_LED, HIGH); 
+  digitalWrite(YESIL_LED, LOW);
+  delay(2000);
+  lcd.clear();
+  oyunAktif = true;
+  sonZaman = millis();
+  ekraniGuncelle();
+}
+
+void patlamaEfekti() {
+  oyunAktif = false;
+  patladi = true;
+  lcd.clear();
+  lcd.setCursor(4, 0);
+  lcd.print("B O O M !");
+  lcd.setCursor(2, 1);
+  lcd.print("OYUN BITTI");
+  
+  digitalWrite(YESIL_LED, LOW);
+  for(int i = 0; i < 6; i++) {
+      digitalWrite(KIRMIZI_LED, HIGH); delay(50);
+      digitalWrite(KIRMIZI_LED, LOW); delay(50);
+  }
+  
+  tone(BUZZER, 100); 
+  while(true); 
+}
+
+void imhaEfekti() {
+  oyunAktif = false;
+  imhaOldu = true;
+  lcd.clear();
+  lcd.setCursor(2, 0);
+  lcd.print("IMHA EDILDI");
+  lcd.setCursor(4, 1);
+  lcd.print("BASARILI");
+  
+  digitalWrite(KIRMIZI_LED, LOW);
+  digitalWrite(YESIL_LED, HIGH); 
+  
+  tone(BUZZER, 1000, 100); delay(150);
+  tone(BUZZER, 1200, 100); delay(150);
+  tone(BUZZER, 1500, 200); delay(200);
+  while(true); 
+}
+
+void sifreBelirleEkrani() {
+  lcd.clear();
+  lcd.print("SIFREYI KURUN:");
+  lcd.setCursor(0, 1);
+  
+  while (true) {
+    char key = keypad.getKey();
+    if (key) {
+      tone(BUZZER, 3000, 50);
+      if (key == '#') { if (kuruluSifre.length() > 0) break; } 
+      else if (key == '*') { 
+        kuruluSifre = "";
+        lcd.setCursor(0, 1); lcd.print("                "); lcd.setCursor(0, 1);
+      }
+      else {
+        kuruluSifre += key;
+        lcd.print(key);
+      }
+    }
+  }
+}
+
+void sureBelirleEkrani() {
+  lcd.clear();
+  lcd.print("SURE (DAK:SN):");
+  lcd.setCursor(0, 1);
+  lcd.print("00:00");
+  
+  String zamanStr = "";
+  
+  while (true) {
+    char key = keypad.getKey();
+    if (key && isDigit(key)) {
+      tone(BUZZER, 3000, 50);
+      
+      if (zamanStr.length() < 4) {
+        zamanStr += key;
+        
+        String paddedStr = "0000" + zamanStr;
+        paddedStr = paddedStr.substring(paddedStr.length() - 4); 
+        
+        lcd.setCursor(0, 1);
+        lcd.print(paddedStr.substring(0, 2) + ":" + paddedStr.substring(2));
+      }
+    }
+    else if (key == '#') { 
+      if (zamanStr.length() > 0) {
+        
+        String paddedStr = "0000" + zamanStr;
+        paddedStr = paddedStr.substring(paddedStr.length() - 4); 
+        
+        int dakika = paddedStr.substring(0, 2).toInt();
+        int saniye = paddedStr.substring(2).toInt();
+        
+        kalanSureSaniye = (long)(dakika * 60) + saniye; 
+        break;
+      }
+    }
+    else if (key == '*') { 
+       zamanStr = "";
+       lcd.setCursor(0, 1);
+       lcd.print("00:00");
+    }
+  }
 }
                 </code></pre>
             </div>

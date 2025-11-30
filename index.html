@@ -1,18 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>Yiğit'in Projeleri</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yiğit Taşçı | Proje Portfolyosu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <h1>Yiğit'in NFC Proje Sayfası</h1>
-  <p>Bu sayfa GitHub Pages üzerinden yayınlandı.</p>
 
-  <h2>Projelerim</h2>
-  <ul>
-    <li>ESP32 Telsiz Projesi</li>
-    <li>Arduino LED Projesi</li>
-    <li>3D Baskı Tasarımları</li>
-  </ul>
+    <header>
+        <div class="container">
+            <h1>Yiğit<span class="highlight">Taşçı</span>.</h1>
+            <p>Elektronik & Yazılım Projeleri</p>
+        </div>
+    </header>
+
+    <section class="projects-section">
+        <div class="container">
+            <h2 class="section-title">Projelerim</h2>
+            
+            <div class="projects-grid">
+                
+                <div class="project-card" onclick="openModal('modal-1')">
+                    <div class="card-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3>Arduino ile LED Kontrolü</h3>
+                    <p>Arduino Uno kullanarak temel giriş/çıkış kontrolü ve LED yakma uygulaması.</p>
+                    <button class="details-btn">Projeyi İncele <i class="fas fa-arrow-right"></i></button>
+                </div>
+
+                <div class="project-card" onclick="openModal('modal-2')">
+                    <div class="card-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Engelden Kaçan Robot</h3>
+                    <p>Ultrasonik sensör kullanarak otonom hareket eden robot projesi.</p>
+                    <button class="details-btn">Projeyi İncele <i class="fas fa-arrow-right"></i></button>
+                </div>
+
+                </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Yiğit Taşçı - Tüm Hakları Saklıdır.</p>
+    </footer>
+
+    <div id="modal-1" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-1')">&times;</span>
+            
+            <h2>Arduino ile LED Kontrolü</h2>
+            
+            <div class="project-detail-section">
+                <h3><i class="fas fa-bullseye"></i> Projenin Amacı</h3>
+                <p>Bu projenin amacı, mikrodenetleyici dünyasına giriş yaparak dijital pinlerin kontrol mantığını kavramaktır. 5V çıkış vererek bir LED'i belirli aralıklarla yakıp söndürmeyi hedefler.</p>
+            </div>
+
+            <div class="project-detail-section">
+                <h3><i class="fas fa-video"></i> Proje Videosu</h3>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="project-detail-section">
+                <h3><i class="fas fa-project-diagram"></i> Devre Şeması</h3>
+                <div class="schema-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/LED_circuit.svg/1200px-LED_circuit.svg.png" alt="Devre Şeması">
+                </div>
+            </div>
+
+            <div class="project-detail-section">
+                <h3><i class="fas fa-code"></i> Kaynak Kod</h3>
+                <pre><code class="language-cpp">
+// Arduino LED Yakma Kodu
+void setup() {
+  pinMode(13, OUTPUT); // 13. Pini çıkış olarak ayarla
+}
+
+void loop() {
+  digitalWrite(13, HIGH); // LED'i yak
+  delay(1000);            // 1 saniye bekle
+  digitalWrite(13, LOW);  // LED'i söndür
+  delay(1000);            // 1 saniye bekle
+}
+                </code></pre>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="modal-2" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-2')">&times;</span>
+            <h2>Engelden Kaçan Robot</h2>
+            <p>Buraya robot projesinin detaylarını, şemasını ve kodlarını aynı yukarıdaki gibi ekleyebilirsin.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>

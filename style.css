@@ -1,0 +1,224 @@
+/* Genel Ayarlar */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #121212; /* Koyu Arka Plan */
+    color: #e0e0e0; /* Açık Gri Yazı */
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header (Üst Kısım) */
+header {
+    background: linear-gradient(135deg, #1f1f1f 0%, #2c3e50 100%);
+    padding: 60px 0;
+    text-align: center;
+    border-bottom: 4px solid #00d2be; /* Arduino Yeşili/Mavisi */
+}
+
+header h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.highlight {
+    color: #00d2be;
+}
+
+/* Projeler Grid Alanı */
+.projects-section {
+    padding: 50px 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2rem;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: #00d2be;
+    margin: 10px auto 0;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+/* Proje Kartları (Kutucuklar) */
+.project-card {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 25px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 210, 190, 0.2);
+    border-color: #00d2be;
+}
+
+.card-icon {
+    font-size: 3rem;
+    color: #00d2be;
+    margin-bottom: 20px;
+}
+
+.project-card h3 {
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+.project-card p {
+    color: #aaa;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+
+.details-btn {
+    background-color: transparent;
+    border: 1px solid #00d2be;
+    color: #00d2be;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.project-card:hover .details-btn {
+    background-color: #00d2be;
+    color: #121212;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #0d0d0d;
+    margin-top: 50px;
+    color: #777;
+}
+
+/* MODAL (Açılır Pencere) Tasarımı */
+.modal {
+    display: none; /* Varsayılan olarak gizli */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.85); /* Arka plan karartma */
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: #1e1e1e;
+    margin: 5% auto;
+    padding: 40px;
+    border: 1px solid #00d2be;
+    width: 80%;
+    max-width: 800px;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 0 30px rgba(0, 210, 190, 0.3);
+    animation: fadeIn 0.4s;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(-20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #fff;
+}
+
+/* Modal İçi Detaylar */
+.project-detail-section {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 20px;
+}
+
+.project-detail-section h3 {
+    color: #00d2be;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Video ve Resim Alanları */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Oranı */
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.schema-container img {
+    width: 100%;
+    max-width: 600px; /* Çok büyük olmasın */
+    border-radius: 8px;
+    background: #fff; /* Şema şeffafsa görünsün diye */
+    padding: 10px;
+}
+
+/* Kod Bloğu Tasarımı */
+pre {
+    background-color: #282c34;
+    padding: 15px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.9rem;
+    border-left: 5px solid #00d2be;
+}
+
+code {
+    color: #abb2bf;
+}

@@ -19,10 +19,55 @@ function closeModal(modalId) {
 }
 
 // Kullanıcı modalın dışına (siyah alana) tıklarsa kapat
-window.onclick = function(event) {
+window.onclick = function (event) {
     // Tıklanan elementin "modal" class'ına sahip olup olmadığını kontrol et
     if (event.target.classList.contains('modal')) {
         event.target.style.display = "none";
         document.body.style.overflow = "auto";
     }
 }
+
+// Kopyalama Butonlarını Ekleme Fonksiyonu
+function addCopyButtons() {
+    // Sayfadaki tüm kod bloklarını (pre içindeki code) değil, direkt pre'leri seçelim
+    const preBlocks = document.querySelectorAll('pre');
+
+    preBlocks.forEach(pre => {
+        // Eğer zaten buton varsa ekleme
+        if (pre.querySelector('.copy-btn')) return;
+
+        // Kopyalama butonu oluştur
+        const button = document.createElement('button');
+        button.className = 'copy-btn';
+        button.innerHTML = '<i class="fas fa-copy"></i> Kopyala';
+
+        // Butona tıklama olayı ekle
+        button.addEventListener('click', () => {
+            const code = pre.querySelector('code');
+            if (!code) return; // Code etiketi yoksa çık
+
+            const textToCopy = code.innerText; // Sadece metni al
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                // Başarılı kopyalama animasyonu
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Kopyalandı!';
+                button.style.backgroundColor = '#4CAF50'; // Yeşil renk
+
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.style.backgroundColor = '#00d2be'; // Orijinal renk
+                }, 2000);
+            }).catch(err => {
+                console.error('Kopyalama hatası:', err);
+                button.innerText = 'Hata!';
+            });
+        });
+
+        // Butonu pre bloğuna ekle
+        pre.appendChild(button);
+    });
+}
+
+// Sayfa yüklendiğinde butonları ekle
+document.addEventListener('DOMContentLoaded', addCopyButtons);

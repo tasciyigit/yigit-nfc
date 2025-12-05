@@ -7,8 +7,10 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #121212; /* Koyu Arka Plan */
-    color: #e0e0e0; /* Açık Gri Yazı */
+    background-color: #121212;
+    /* Koyu Arka Plan */
+    color: #e0e0e0;
+    /* Açık Gri Yazı */
     line-height: 1.6;
 }
 
@@ -23,7 +25,8 @@ header {
     background: linear-gradient(135deg, #1f1f1f 0%, #2c3e50 100%);
     padding: 60px 0;
     text-align: center;
-    border-bottom: 4px solid #00d2be; /* Arduino Yeşili/Mavisi */
+    border-bottom: 4px solid #00d2be;
+    /* Arduino Yeşili/Mavisi */
 }
 
 header h1 {
@@ -126,7 +129,8 @@ footer {
 
 /* MODAL (Açılır Pencere) Tasarımı */
 .modal {
-    display: none; /* Varsayılan olarak gizli */
+    display: none;
+    /* Varsayılan olarak gizli */
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -134,7 +138,8 @@ footer {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.85); /* Arka plan karartma */
+    background-color: rgba(0, 0, 0, 0.85);
+    /* Arka plan karartma */
     backdrop-filter: blur(5px);
 }
 
@@ -152,8 +157,15 @@ footer {
 }
 
 @keyframes fadeIn {
-    from {opacity: 0; transform: translateY(-20px);}
-    to {opacity: 1; transform: translateY(0);}
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .close-btn {
@@ -186,14 +198,16 @@ footer {
 /* Video ve Resim Alanları */
 .video-container {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 Oranı */
+    padding-bottom: 56.25%;
+    /* 16:9 Oranı */
     height: 0;
     overflow: hidden;
     border-radius: 8px;
 }
 
-.video-container iframe, 
-.video-container video { /* Hem iframe hem de video etiketine uygulanır */
+.video-container iframe,
+.video-container video {
+    /* Hem iframe hem de video etiketine uygulanır */
     position: absolute;
     top: 0;
     left: 0;
@@ -203,9 +217,11 @@ footer {
 
 .schema-container img {
     width: 100%;
-    max-width: 600px; /* Çok büyük olmasın */
+    max-width: 600px;
+    /* Çok büyük olmasın */
     border-radius: 8px;
-    background: #fff; /* Şema şeffafsa görünsün diye */
+    background: #fff;
+    /* Şema şeffafsa görünsün diye */
     padding: 10px;
 }
 
@@ -218,33 +234,61 @@ pre {
     font-family: 'Source Code Pro', monospace;
     font-size: 0.9rem;
     border-left: 5px solid #00d2be;
+    position: relative;
+    /* Butonun konumlanması için gerekli */
+}
+
+.copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #00d2be;
+    color: #121212;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    opacity: 0.8;
+}
+
+.copy-btn:hover {
+    background-color: #fff;
+    opacity: 1;
 }
 
 code {
     color: #abb2bf;
 }
+
 /* ================= YENİ EKLENEN CSS STİLLERİ ================= */
 
 /* Hakkımda Bölümü */
 .about-section {
     padding: 50px 0;
-    text-align: center; /* Tüm içeriğin (varsa) ortalanmasını sağlar */
+    text-align: center;
+    /* Tüm içeriğin (varsa) ortalanmasını sağlar */
     background-color: #1a1a1a;
     border-bottom: 1px solid #333;
 }
 
 .about-content {
-    max-width: 700px; /* İçerik genişliğini sınırlar */
-    margin: 0 auto;  /* *** ÖNEMLİ: Bu kod, bloğu ortalar *** */
+    max-width: 700px;
+    /* İçerik genişliğini sınırlar */
+    margin: 0 auto;
+    /* *** ÖNEMLİ: Bu kod, bloğu ortalar *** */
     font-size: 1.1rem;
     color: #ccc;
-    text-align: center; /* Metinlerin ortada durması için */
+    text-align: center;
+    /* Metinlerin ortada durması için */
 }
 
 .about-content p {
     margin-bottom: 20px;
     /* Metin hizalaması için ekleme yapabiliriz */
-    text-align: center; 
+    text-align: center;
 }
 
 .info-badges {
@@ -313,13 +357,15 @@ code {
     margin-right: 10px;
     color: #ccc;
 }
+
 /* Yeni Eklenen Buton Stilleri */
 .header-buttons {
     margin-top: 20px;
     display: flex;
     justify-content: center;
     gap: 15px;
-    flex-wrap: wrap; /* Mobilde taşmayı önler */
+    flex-wrap: wrap;
+    /* Mobilde taşmayı önler */
 }
 
 .header-buttons .nav-btn {

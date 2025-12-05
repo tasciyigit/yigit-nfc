@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yiğit Taşçı | 3D Baskılar</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Source+Code+Pro:wght+400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Yiğit<span class="highlight">Taşçı</span>.</h1>
+            <p>Elektronik & Yazılım Projeleri</p>
+
+            <div class="header-buttons">
+                <a href="index.html" class="nav-btn"><i class="fas fa-list-check"></i> Projelerim</a>
+                <a href="hakkimda.html" class="nav-btn"><i class="fas fa-user-circle"></i> Hakkımda</a>
+                <a href="iletisim.html" class="nav-btn"><i class="fas fa-paper-plane"></i> İletişim</a>
+                <a href="3d.html" class="nav-btn active"><i class="fas fa-cube"></i> 3D Baskılar</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="projects-section">
+        <div class="container">
+            <h2 class="section-title">3D Baskı Projelerim</h2>
+
+            <div class="projects-grid">
+
+                <div class="project-card" onclick="openModal('modal-3d-1')">
+                    <div class="card-icon"><i class="fas fa-cube"></i></div>
+                    <h3>Telefon Standı</h3>
+                    <p>Çok fonksiyonlu telefon ve aksesuar standı.</p>
+                    <button class="details-btn">Projeyi İncele <i class="fas fa-arrow-right"></i></button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Yiğit Taşçı | Proje Portfolyosu</p>
+    </footer>
+
+    <!-- Telefon Standı Modal -->
+    <div id="modal-3d-1" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-3d-1')">&times;</span>
+            <h2>Telefon Standı</h2>
+
+            <div class="project-detail-section">
+                <h3><i class="fas fa-info-circle"></i> Açıklama</h3>
+                <p>Bu telefon standı telefon, kulaklık, saat gibi cihazlarınızı şarj ederek tek bir stantta toplar.
+                    Dağınıklığı önler ve şık bir görünüm sağlar.</p>
+            </div>
+
+            <div class="project-detail-section">
+                <h3><i class="fas fa-image"></i> Fotoğraf</h3>
+                <div class="schema-container">
+                    <!-- Placeholder image path, user can replace -->
+                    <img src="https://placehold.co/600x400?text=Telefon+Standi+Fotografi" alt="Telefon Standı">
+                    <p class="schema-desc">Standın genel görünümü.</p>
+                </div>
+            </div>
+
+            <div class="project-detail-section">
+                <h3><i class="fas fa-video"></i> İnceleme Videosu</h3>
+                <div class="video-container">
+                    <video controls>
+                        <!-- Placeholder video path, user can replace or remove -->
+                        <source src="videos/telefon_standi_ornek.mp4" type="video/mp4">
+                        Tarayıcınız video etiketini desteklemiyor.
+                    </video>
+                </div>
+            </div>
+
+            <div class="project-detail-section">
+                <h3><i class="fas fa-file-download"></i> Dosyalar</h3>
+                <p>Baskı almak için gerekli STL dosyalarını aşağıdan indirebilirsiniz.</p>
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="#" class="nav-btn" download><i class="fas fa-download"></i> İndir (Model Dosyası)</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

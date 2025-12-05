@@ -319,6 +319,7 @@ code {
     display: flex;
     justify-content: center;
     gap: 15px;
+    flex-wrap: wrap; /* Mobilde taşmayı önler */
 }
 
 .header-buttons .nav-btn {

@@ -1,85 +1,95 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yiğit Taşçı | Projelerim</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Source+Code+Pro:wght+400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yiğit Taşçı | Projelerim</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Source+Code+Pro:wght+400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
 
-    <header>
-        <div class="container">
-            <h1>Yiğit<span class="highlight">Taşçı</span>.</h1>
-            <p>Elektronik & Yazılım Projeleri</p>
-            
-            <div class="header-buttons">
-                <a href="index.html" class="nav-btn active"><i class="fas fa-list-check"></i> Projelerim</a>
-                <a href="hakkimda.html" class="nav-btn"><i class="fas fa-user-circle"></i> Hakkımda</a>
-                <a href="iletisim.html" class="nav-btn"><i class="fas fa-paper-plane"></i> İletişim</a>
-            </div>
+  <header>
+    <div class="container">
+      <h1>Yiğit<span class="highlight">Taşçı</span>.</h1>
+      <p>Elektronik & Yazılım Projeleri</p>
+
+      <div class="header-buttons">
+        <a href="index.html" class="nav-btn active"><i class="fas fa-list-check"></i> Projelerim</a>
+        <a href="hakkimda.html" class="nav-btn"><i class="fas fa-user-circle"></i> Hakkımda</a>
+        <a href="iletisim.html" class="nav-btn"><i class="fas fa-paper-plane"></i> İletişim</a>
+        <a href="3d.html" class="nav-btn"><i class="fas fa-cube"></i> 3D Baskılar</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="projects-section">
+    <div class="container">
+      <h2 class="section-title">Projelerim</h2>
+
+      <div class="projects-grid">
+
+        <div class="project-card" onclick="openModal('modal-3')">
+          <div class="card-icon"><i class="fas fa-key"></i></div>
+          <h3>Python Şifre Kırma Simülasyonu</h3>
+          <p>Brute-force mantığı ile şifre kırma algoritması demosu.</p>
+          <button class="details-btn">Projeyi İncele <i class="fas fa-arrow-right"></i></button>
         </div>
-    </header>
-
-    <section class="projects-section">
-        <div class="container">
-            <h2 class="section-title">Projelerim</h2>
-            
-            <div class="projects-grid">
-                
-                <div class="project-card" onclick="openModal('modal-3')">
-                    <div class="card-icon"><i class="fas fa-key"></i></div>
-                    <h3>Python Şifre Kırma Simülasyonu</h3>
-                    <p>Brute-force mantığı ile şifre kırma algoritması demosu.</p>
-                    <button class="details-btn">Projeyi İncele <i class="fas fa-arrow-right"></i></button>
-                </div>
-                <div class="project-card" onclick="openModal('modal-5')">
-    <div class="card-icon"><i class="fas fa-robot"></i></div>
-    <h3>Şifreli bomba (C++)</h3>
-    <p>Girdiğin süre içerisinde şifreyi bilemesen patlayan Arduino projesi.</p>
-    <button class="details-btn">Projeyi İncele <i class="fas fa-arrow-right"></i></button>
-</div>
-
-            </div>
+        <div class="project-card" onclick="openModal('modal-5')">
+          <div class="card-icon"><i class="fas fa-robot"></i></div>
+          <h3>Şifreli bomba (C++)</h3>
+          <p>Girdiğin süre içerisinde şifreyi bilemesen patlayan Arduino projesi.</p>
+          <button class="details-btn">Projeyi İncele <i class="fas fa-arrow-right"></i></button>
         </div>
-    </section>
-    
-    <footer>
-        <p>&copy; 2025 Yiğit Taşçı | Proje Portfolyosu</p>
-    </footer>
 
-    <div id="modal-3" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('modal-3')">&times;</span>
-            <h2>Python Şifre Kırma Simülasyonu</h2>
-            
-            <div class="project-detail-section">
-                <h3><i class="fas fa-bullseye"></i> Amaç</h3>
-                <p>Kullanıcının belirlediği şifreyi, olası tüm kombinasyonları (en düşük karakterden en yükseğe doğru) hızlıca deneyerek bulmaya çalışan bir **Brute-Force algoritmasının** çalışma mantığını göstermek. Deneme hızı, kullanılan bilgisayarın işlem gücüne bağlıdır.</p>
-            </div>
+      </div>
+    </div>
+  </section>
 
-            <div class="project-detail-section">
-                <h3><i class="fas fa-video"></i> Video</h3>
-                <div class="video-container">
-                    <video controls>
-                        <source src="videos/Adsız tasarım.mp4" type="video/mp4">
-                        Tarayıcınız video etiketini desteklemiyor.
-                    </video>
-                </div>
-            </div>
+  <footer>
+    <p>&copy; 2025 Yiğit Taşçı | Proje Portfolyosu</p>
+  </footer>
 
-            <div class="project-detail-section">
-                <h3><i class="fas fa-cogs"></i> Çalışma Mantığı</h3>
-                <div class="schema-container">
-                    <p class="schema-desc">Bu projede, Python'da `random` kütüphanesi kullanılarak deneme karakterleri (harf ve rakamlar) tanımlanmıştır. Kod, belirlenen şifre uzunluğunda rastgele karakterler üretir ve şifre bulunana kadar denemeye devam eder. Bu simülasyon, kısa ve zayıf şifrelerin ne kadar hızlı bulunabileceğini göstermektedir.</p>
-                </div>
-            </div>
+  <div id="modal-3" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal-3')">&times;</span>
+      <h2>Python Şifre Kırma Simülasyonu</h2>
 
-            <div class="project-detail-section">
-                <h3><i class="fas fa-code"></i> Kaynak Kod (Python)</h3>
-                <pre><code class="language-python">
+      <div class="project-detail-section">
+        <h3><i class="fas fa-bullseye"></i> Amaç</h3>
+        <p>Kullanıcının belirlediği şifreyi, olası tüm kombinasyonları (en düşük karakterden en yükseğe doğru) hızlıca
+          deneyerek bulmaya çalışan bir **Brute-Force algoritmasının** çalışma mantığını göstermek. Deneme hızı,
+          kullanılan bilgisayarın işlem gücüne bağlıdır.</p>
+      </div>
+
+      <div class="project-detail-section">
+        <h3><i class="fas fa-video"></i> Video</h3>
+        <div class="video-container">
+          <video controls>
+            <source src="videos/Adsız tasarım.mp4" type="video/mp4">
+            Tarayıcınız video etiketini desteklemiyor.
+          </video>
+        </div>
+      </div>
+
+      <div class="project-detail-section">
+        <h3><i class="fas fa-cogs"></i> Çalışma Mantığı</h3>
+        <div class="schema-container">
+          <p class="schema-desc">Bu projede, Python'da `random` kütüphanesi kullanılarak deneme karakterleri (harf ve
+            rakamlar) tanımlanmıştır. Kod, belirlenen şifre uzunluğunda rastgele karakterler üretir ve şifre bulunana
+            kadar denemeye devam eder. Bu simülasyon, kısa ve zayıf şifrelerin ne kadar hızlı bulunabileceğini
+            göstermektedir.</p>
+        </div>
+      </div>
+
+      <div class="project-detail-section">
+        <h3><i class="fas fa-code"></i> Kaynak Kod (Python)</h3>
+        <pre><code class="language-python">
 # BURAYI DEĞİŞTİR: Python kodunu buraya yapıştır.
 from random import randint
 
@@ -122,42 +132,50 @@ def main() -> None:
 if __name__ == "__main__":
     main()
                 </code></pre>
-            </div>
-        </div>
+      </div>
     </div>
-    <div id="modal-5" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('modal-5')">&times;</span>
-            <h2>Şifreli bomba </h2>
-            
-            <div class="project-detail-section">
-                <h3><i class="fas fa-bullseye"></i> Amaç</h3>
-                <p>Bu proje, Keypad (Tuş Takımı), LCD Ekran ve Arduino Uno kullanılarak geliştirilmiş, **kompleks bir şifreli imha simülasyonudur** (Bomb Defusal Game). Projenin amacı, kullanıcının belirlediği süre ve şifre ile kurulan zamanlayıcıyı devreye sokmak ve geri sayım bitmeden doğru şifreyi girerek sistemi durdurmayı sağlamaktır.</p>
-<p>Proje, bir Arduino projesinde sıklıkla kullanılan birden fazla temel fonksiyonu bir araya getirir: **Gelişmiş Keypad okuma**, **LCD Ekran üzerinden kullanıcı etkileşimi (kurulum)**, **zamanlayıcı yönetimi (`millis()`)** ve **sesli/görsel geri bildirimler (LED/Buzzer)**.</p>
-<p>Yanlış şifre girildiğinde süre kısaltılır ve uyarılar verilirken, süre dolduğunda ise görsel ve sesli **'Patlama Efekti'** ile oyun sonlanır. Bu, gerçek dünya kilit sistemlerinin veya oyun tasarımlarının temel mantığını sergiler.</p>
-            </div>
+  </div>
+  <div id="modal-5" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal-5')">&times;</span>
+      <h2>Şifreli bomba </h2>
 
-            <div class="project-detail-section">
-                <h3><i class="fas fa-video"></i> Video</h3>
-                <div class="video-container">
-                    <video controls>
-                        <source src="Adsız tasarım-3.mp4" type="video/mp4">
-                        Tarayıcınız video etiketini desteklemiyor.
-                    </video>
-                </div>
-            </div>
+      <div class="project-detail-section">
+        <h3><i class="fas fa-bullseye"></i> Amaç</h3>
+        <p>Bu proje, Keypad (Tuş Takımı), LCD Ekran ve Arduino Uno kullanılarak geliştirilmiş, **kompleks bir şifreli
+          imha simülasyonudur** (Bomb Defusal Game). Projenin amacı, kullanıcının belirlediği süre ve şifre ile kurulan
+          zamanlayıcıyı devreye sokmak ve geri sayım bitmeden doğru şifreyi girerek sistemi durdurmayı sağlamaktır.</p>
+        <p>Proje, bir Arduino projesinde sıklıkla kullanılan birden fazla temel fonksiyonu bir araya getirir: **Gelişmiş
+          Keypad okuma**, **LCD Ekran üzerinden kullanıcı etkileşimi (kurulum)**, **zamanlayıcı yönetimi (`millis()`)**
+          ve **sesli/görsel geri bildirimler (LED/Buzzer)**.</p>
+        <p>Yanlış şifre girildiğinde süre kısaltılır ve uyarılar verilirken, süre dolduğunda ise görsel ve sesli
+          **'Patlama Efekti'** ile oyun sonlanır. Bu, gerçek dünya kilit sistemlerinin veya oyun tasarımlarının temel
+          mantığını sergiler.</p>
+      </div>
 
-            <div class="project-detail-section">
-                <h3><i class="fas fa-project-diagram"></i> Devre Şeması</h3>
-                <div class="schema-container">
-                    <img src="images/servo_motor_schema.jpg" alt="Potansiyometre ve Servo Motor Bağlantı Şeması">
-                    <p class="schema-desc">Potansiyometrenin orta pini **Arduino A0** analog girişine, yan pinleri **5V ve GND**'ye bağlanmıştır. Servo Motor'un veri (sarı) pini **Arduino Dijital 9**'a, güç ve toprak pinleri uygun şekilde bağlanmıştır.</p>
-                </div>
-            </div>
+      <div class="project-detail-section">
+        <h3><i class="fas fa-video"></i> Video</h3>
+        <div class="video-container">
+          <video controls>
+            <source src="Adsız tasarım-3.mp4" type="video/mp4">
+            Tarayıcınız video etiketini desteklemiyor.
+          </video>
+        </div>
+      </div>
 
-            <div class="project-detail-section">
-                <h3><i class="fas fa-code"></i> Kaynak Kod (C++)</h3>
-                <pre><code class="language-cpp">
+      <div class="project-detail-section">
+        <h3><i class="fas fa-project-diagram"></i> Devre Şeması</h3>
+        <div class="schema-container">
+          <img src="images/servo_motor_schema.jpg" alt="Potansiyometre ve Servo Motor Bağlantı Şeması">
+          <p class="schema-desc">Potansiyometrenin orta pini **Arduino A0** analog girişine, yan pinleri **5V ve
+            GND**'ye bağlanmıştır. Servo Motor'un veri (sarı) pini **Arduino Dijital 9**'a, güç ve toprak pinleri uygun
+            şekilde bağlanmıştır.</p>
+        </div>
+      </div>
+
+      <div class="project-detail-section">
+        <h3><i class="fas fa-code"></i> Kaynak Kod (C++)</h3>
+        <pre><code class="language-cpp">
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <Keypad.h>
@@ -431,11 +449,12 @@ void sureBelirleEkrani() {
   }
 }
                 </code></pre>
-            </div>
-        </div>
+      </div>
     </div>
-    
-    
-    <script src="script.js"></script>
+  </div>
+
+
+  <script src="script.js"></script>
 </body>
+
 </html>

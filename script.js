@@ -69,5 +69,53 @@ function addCopyButtons() {
     });
 }
 
-// Sayfa yüklendiğinde butonları ekle
-document.addEventListener('DOMContentLoaded', addCopyButtons);
+// Sayfa yüklendiğinde butonları ve lightbox'ı ekle
+document.addEventListener('DOMContentLoaded', () => {
+    addCopyButtons();
+    setupLightbox();
+});
+
+// Lightbox Kurulum Fonksiyonu
+function setupLightbox() {
+    // Lightbox HTML'ini oluşturup body'ye ekleyelim (Eğer yoksa)
+    if (!document.getElementById('imgLightbox')) {
+        const lightboxHTML = `
+            <div id="imgLightbox" class="lightbox">
+                <span class="lightbox-close">&times;</span>
+                <img class="lightbox-content" id="lightboxImg">
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', lightboxHTML);
+    }
+
+    const lightbox = document.getElementById('imgLightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const closeBtn = document.querySelector('.lightbox-close');
+
+    // Kapatma butonu
+    closeBtn.onclick = function () {
+        lightbox.style.display = "none";
+        document.body.style.overflow = "auto";
+    }
+
+    // Lightbox dışına tıklayınca kapatma
+    lightbox.onclick = function (e) {
+        if (e.target === lightbox) {
+            lightbox.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+    }
+
+    // Tüm içerik resimlerini seç (schema-container içindekiler veya genel img'ler)
+    // Şimdilik .schema-container img diyelim, isterseniz tüm .modal-content img yapabiliriz
+    const images = document.querySelectorAll('.schema-container img');
+
+    images.forEach(img => {
+        img.addEventListener('click', function () {
+            lightbox.style.display = "block";
+            lightboxImg.src = this.src;
+            // Alt metni (alt attribute) caption olarak ekleyebiliriz isterseniz
+            document.body.style.overflow = "hidden";
+        });
+    });
+}

@@ -391,3 +391,65 @@ code {
     background-color: #00d2be;
     color: #121212;
 }
+
+/* Lightbox (Tam Ekran Resim) */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    padding-top: 50px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.lightbox-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 900px;
+    max-height: 80vh;
+    object-fit: contain;
+    animation: zoomIn 0.3s;
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.1)
+    }
+
+    to {
+        transform: scale(1)
+    }
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.lightbox-close:hover,
+.lightbox-close:focus {
+    color: #00d2be;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Resimlere tıklanabilirlik hissi ver */
+.schema-container img {
+    cursor: zoom-in;
+    transition: 0.3s;
+}
+
+.schema-container img:hover {
+    opacity: 0.8;
+}
